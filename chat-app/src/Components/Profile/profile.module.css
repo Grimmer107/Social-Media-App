@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 87.5%;
+    margin: auto;
+    margin-top: 1.5em;
+    color: #543795;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: lighter;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, rgb(22, 21, 38), rgba(18,26,40,1));
+    overflow-y: auto;
+    overflow-wrap: break-word;
+}
+
+.profile__photo {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 30%;
+    flex-basis: 1;
+    padding: 1em 1em 1em;
+    box-sizing: border-box;
+}
+
+/* .profile__photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+    align-items: center;
+    margin: auto;
+    margin-top: 1.5em;
+} */
+
+.separator {
+    width: 100%;
+    flex: 1 1 2%;
+}
+
+.separator hr {
+    width: 90%;
+    height: 2px;
+    margin: auto;
+    border: none;
+    background-color: #543795;
+    color: #543795;
+}
+
+.profile__details {
+    flex: 1 1 68%;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.profile__details p {
+    margin: 0;
+    margin-top: 1em;
+}
+
+.profile__details p > span {
+    color: white;
+}

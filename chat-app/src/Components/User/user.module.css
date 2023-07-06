@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+.body {
+    display: flex;
+    flex-direction: row;
+    padding: 1.25em 1em;
+    background-color: #12101a;
+    background-image: linear-gradient(to right, rgba(25,24,43,255), rgba(18,26,40,1));
+    margin-top: 1em;
+    border-radius: 12px;
+    align-items: center;
+    font-size: 0.75rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 50%;
+}
+
+.profile .image img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 1em;
+    margin-left: 8px;
+}
+
+.profile .details p {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #6f4eaf;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 50%;
+    padding-left: 1em;
+    justify-content: flex-end;
+
+}
+
+.button button {
+    padding: 0.75em 1em;
+    background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154));
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    border: none;
+    outline: none;
+    min-width: 10em;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.button button:hover {
+    cursor: pointer;
+    background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154));
+}
+
+@media screen and (max-width: 880px) {
+    .body {
+        flex-direction: column;
+    }
+    .button {
+        width: 90%;
+        margin: auto;
+        margin-top: 0.75em;
+        padding-left: 0;
+    }
+    .button button {
+        width: 100%;
+
+    }
+}

@@ -1,0 +1,78 @@
+.bodySelf {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5em;
+    font-size: 0.75rem;
+    color: #b7a9b5;
+    align-items: center;
+    font-family: 'Libre Franklin', sans-serif;
+    box-sizing: border-box;
+}
+
+.bodySelf img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1em;
+}
+
+.bodySelf p {
+    background-color: #19182b;
+    max-width: 14em;
+    border-radius: 25px;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 1em;
+    overflow-wrap: break-word;
+}
+
+.bodyFriend {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 0.75rem;
+    margin-bottom: 0.5em;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+
+.bodyFriend img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1em;
+}
+
+.bodyFriend p {
+    background-color: #4e38a2;
+    max-width: 14em;
+    border-radius: 25px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 1em;
+    overflow-wrap: break-word;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #12101a; 
+    border-top: #888;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #6f4eaf; 
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5e35b1; 
+  }

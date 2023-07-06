@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+}
+
+.body {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 50%;
+    height: 60%;
+    background-color: #12101a;
+    border: 1px solid #543795;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+   backdrop-filter: blur(10px);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+}
+
+.Search__section {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 1;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.search {
+    background-color: #201a2c;
+    width: 80%;
+    height: 2.25em;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 1em;
+    border-radius: 6px;
+    padding-right: 0em;
+}
+
+.search i {
+    color: #66636f;
+    font-size: 1rem;
+    margin-right: 0.7em;
+}
+
+.search input {
+    background-color: #201a2c;
+    color: #66636f;
+    height: 2.25em;
+    width: 85%;
+    border: none;
+    outline: none;
+    padding-left: 1em;
+}
+
+.search__button button {
+    color: white;
+    background-color: #543795;
+    font-family: 'Open Sans', sans-serif;
+    height: 2.25em;
+    width: 7.5em;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.search__button button:hover {
+    cursor: pointer;
+    background-color: #4b2996;
+}
+
+.close__button {
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    margin-right: 10px;
+    background-color: #221834;
+    text-align: center;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.close__button i {
+    color: #7a4bd8;
+}
+
+.close__button:hover {
+    color: #6631d0;
+    cursor: pointer;
+    background-color: #1d142c;
+}
+
+.scrollbox {
+    width: 100%;
+    height: 100%;
+    margin-top: 1.5em;
+    padding-bottom: 1em;
+    padding-right: 0.5em;
+    overflow-y: auto;
+    visibility: hidden;
+}
+
+.add__friend {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0.5em;
+}
+
+.add__friend,
+.scrollbox:hover,
+.add__friend:hover {
+  visibility: visible;
+}
+
+@media screen and (max-width: 880px) {
+    .body {
+        top: 15%;
+        left: 15%;
+        width: 60%;
+        height: 60%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .body {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
