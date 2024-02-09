@@ -9,6 +9,7 @@ const logout = (navigate) => {
     localStorage.setItem('token', "");
     localStorage.setItem('name', "");
     localStorage.setItem('email', "");
+    localStorage.setItem('expiryDate', "");
     navigate('/');
 }
 

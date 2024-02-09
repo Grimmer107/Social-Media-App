@@ -5,7 +5,7 @@ const Message = (props) => {
     const [image, setImg] = useState(props.image);
     return (
         <div className={`${props.self ? Classes.bodySelf : Classes.bodyFriend}`}>
-            <img src={image} alt={"profile"} />
+            <img src={image} alt={"profile"} loading={'lazy'} />
             <p>{props.content}</p>
         </div>
     );

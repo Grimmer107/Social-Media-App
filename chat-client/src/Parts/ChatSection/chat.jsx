@@ -23,15 +23,20 @@ const Chat = () => {
 
     const [feedMessages, setFeedMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
-    const [update, setUpdate] = useState(false);
-    const [conversationId, setConversationId] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState("");
 
+    const [update, setUpdate] = useState(false);
+    const [conversationId, setConversationId] = useState(null);
     const [currentProfileImage, setCurrentProfileImage] = useState()
+    const [contactChanged, setContactChanged] = useState(false)
 
     let navigate = useNavigate();
 
     const chatEl = useRef(null);
+
+    useEffect(() => {
+        setContactChanged(true)
+    }, [currentContact])
 
     useEffect(() => {
 
@@ -56,18 +61,19 @@ const Chat = () => {
                         Authorization: 'Bearer ' + token
                     }
                 })
-                .then(response => {
-                    let profiler = `http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/")
-                    let feed = contentFeed.map((mess) => {
-                        if (mess.sender === username) {
-                            return { self: true, message: mess.content, image: profiler }
-                        } else {
-                            return { self: false, message: mess.content, image: currentContact.image }
-                        }
-                    })
-                    setCurrentProfileImage(profiler);
-                    setFeedMessages(feed);
-                }).catch(err => console.log(err));
+                    .then(response => {
+                        let profiler = `http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/")
+                        let feed = contentFeed.map((mess) => {
+                            if (mess.sender === username) {
+                                return { self: true, message: mess.content, image: profiler }
+                            } else {
+                                return { self: false, message: mess.content, image: currentContact.image }
+                            }
+                        })
+                        setCurrentProfileImage(profiler);
+                        setFeedMessages(feed);
+                        setContactChanged(false)
+                    }).catch(err => console.log(err));
             }
         }).catch(err => console.log(err));
 
@@ -105,7 +111,6 @@ const Chat = () => {
         }
 
         if (newMessage !== "") {
-            console.log("Send useEffect called");
             axios({
                 url: 'http://localhost:8080/send',
                 method: 'POST',
@@ -130,24 +135,24 @@ const Chat = () => {
     return (
         <div className={Classes.body}>
             <div className={Classes.chatName}>{currentContact.name}</div>
-                <div className={Classes.Chat} >
-                    {feedMessages.map(message => {
-                        if(message.self === true){
-                            return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                                self={message.self} content={message.message} image={currentProfileImage} />
-                        } else {
-                            return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                                self={message.self} content={message.message} image={currentContact.image} />
-                        }
-                    })}
+            <div className={Classes.Chat} >
+                {contactChanged === false ? feedMessages.map(message => {
+                    if (message.self === true) {
+                        return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
+                            self={message.self} content={message.message} image={currentProfileImage} />
+                    } else {
+                        return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
+                            self={message.self} content={message.message} image={currentContact.image} />
+                    }
+                }) : null}
                 <div className={Classes.dummyDiv} ref={chatEl}>.</div>
-                </div>
+            </div>
             <div className={Classes.MessageSection}>
                 <input type={"text"} placeholder={"Write a message..."} onChange={e => { setNewMessage(e.target.value) }} value={newMessage} />
                 <img src={message_send} alt={"send"} onClick={() => setUpdate(prevState => !prevState)} />
                 <span className={Classes.attacher}>
-                    <img src={attach} alt={"attach"} onClick={() => {imageUpload.current.click();}}/>
-                    <input type={"file"} ref={imageUpload}/>
+                    <img src={attach} alt={"attach"} onClick={() => { imageUpload.current.click(); }} />
+                    <input type={"file"} ref={imageUpload} />
                 </span>
             </div>
         </div>

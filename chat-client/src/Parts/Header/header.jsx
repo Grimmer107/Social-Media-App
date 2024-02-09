@@ -16,9 +16,9 @@ const Header = () => {
                 Authorization: 'Bearer ' + token
             }
         })
-        .then(response => {
-            setImage(`http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/"));
-        }).catch(err => console.log(err));
+            .then(response => {
+                setImage(`http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/"));
+            }).catch(err => console.log(err));
     }, [])
 
     return (
@@ -37,7 +37,7 @@ const Header = () => {
                     <div className={Classes.notificationCount}>
                         3
                     </div>
-                    <img src={image} alt={"profile"} />
+                    <img src={image} alt={"profile"} loading={'lazy'} />
                 </div>
             </div>
         </>

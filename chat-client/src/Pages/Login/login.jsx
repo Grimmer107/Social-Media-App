@@ -39,7 +39,6 @@ const Login = () => {
                     const expiryDate = new Date(
                         new Date().getTime() + remainingMilliseconds
                     );
-                    console.log(expiryDate.toISOString())
                     localStorage.setItem('expiryDate', expiryDate.toISOString());
                     const socket = io.connect('ws://localhost:8900')
                     socket.emit('add_user', response.data.email)
@@ -53,7 +52,7 @@ const Login = () => {
         <div className={Classes.body}>
             <div className={Classes.form__content}>
                 <div className={Classes.signup__image}>
-                    <img src={chatting_image} alt={"signup"} />
+                    <img src={chatting_image} alt={"signup"} loading={'lazy'} />
                 </div>
                 <form onSubmit={(e) => onFormSubmit(e)}>
                     <h1>Chaty</h1>

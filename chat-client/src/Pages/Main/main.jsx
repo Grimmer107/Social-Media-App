@@ -32,7 +32,11 @@ const Main = () => {
         if (new Date(expiryDate) <= new Date()) {
             navigate('/');
         }
-    }, []);
+    }, [navigate]);
+
+    useEffect(() => {
+
+    }, [currentContact])
 
     return (
         <div className={Classes.App}>

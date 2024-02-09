@@ -33,10 +33,10 @@ const Signup = () => {
 
             axios.post('http://localhost:8080/signup',
                 formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                })
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            })
                 .then(response => {
                     navigate('/');
                 })
@@ -48,7 +48,7 @@ const Signup = () => {
         <div className={Classes.body}>
             <div className={Classes.form__content}>
                 <div className={Classes.signup__image}>
-                    <img src={chatting_image} alt={"signup"} />
+                    <img src={chatting_image} alt={"signup"} loading={'lazy'} />
                 </div>
                 <form onSubmit={(e) => onFormSubmit(e)} encType="multipart/form-data">
                     <h1>Chaty</h1>

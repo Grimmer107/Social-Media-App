@@ -18,10 +18,8 @@ exports.login = async (req, res, next) => {
                     email: email,
                     password: password
                 }, '&Quantum$Leap@123%', { expiresIn: '10h' });
-                console.log("1")
-                res.status(200).json({ message: 'User logged in!', name: user.name, email: user.email, token: token });
+                return res.status(200).json({ message: 'User logged in!', name: user.name, email: user.email, token: token });
             } else {
-                console.log("2")
                 return res.status(400).json({ message: 'Invalid username or password' });
             }
         } else {
@@ -42,13 +40,13 @@ exports.signup = async (req, res, next) => {
     const profile_picture = req.file.path;
     try {
         const hashedPassword = await bcrypt.hash(password, 12)
-        const new_user = new User({
+        const newUser = new User({
             name: name,
             email: email,
             password: hashedPassword,
             profile_picture: profile_picture
         });
-        const user = await new_user.save();
+        const user = await newUser.save();
         return res.status(201).json({ message: 'New user created!', user: user });
     } catch (err) {
         console.log(err)

@@ -9,7 +9,7 @@ import Context from '../../Context/context';
 const User = ({ name, email }) => {
     const [contactStatus, setContactStatus] = useState("Add to Contacts");
     let navigate = useNavigate();
-    const {setContactFlag} = useContext(Context);
+    const { setContactFlag } = useContext(Context);
 
     const UserRef = useRef(null);
 
@@ -36,8 +36,8 @@ const User = ({ name, email }) => {
                 },
                 method: 'POST'
             })
-            .then((response) => {
-            }).catch(err => console.log('Error:' + err));
+                .then((response) => {
+                }).catch(err => console.log('Error:' + err));
         }
 
     }, [contactStatus]);
@@ -45,7 +45,7 @@ const User = ({ name, email }) => {
     return (
         <div className={Classes.body} ref={UserRef}>
             <div className={Classes.profile}>
-                <div className={Classes.image}><img src={profile} alt={"profile"} /></div>
+                <div className={Classes.image}><img src={profile} alt={"profile"} loading={'lazy'} /></div>
                 <div className={Classes.details}><p>{name}</p></div>
             </div>
             <div className={Classes.button} onClick={() => {

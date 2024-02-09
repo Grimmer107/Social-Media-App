@@ -9,18 +9,18 @@ const Gallery = () => {
     return (
         <div className={Classes.scrollbox}>
             <div className={Classes.body}>
-                <img src={Pic1} alt={"pic1"} />
-                <img src={Pic2} alt={"pic2"} />
-                <img src={Pic3} alt={"pic3"} />
-                <img src={Pic4} alt={"pic4"} />
-                <img src={Pic1} alt={"pic1"} />
-                <img src={Pic2} alt={"pic2"} />
-                <img src={Pic3} alt={"pic3"} />
-                <img src={Pic4} alt={"pic4"} />
-                <img src={Pic1} alt={"pic1"} />
-                <img src={Pic2} alt={"pic2"} />
-                <img src={Pic3} alt={"pic3"} />
-                <img src={Pic4} alt={"pic4"} />
+                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
+                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
+                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
+                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
+                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
+                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
+                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
+                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
+                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
+                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
+                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
+                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
             </div>
         </div>
     );
