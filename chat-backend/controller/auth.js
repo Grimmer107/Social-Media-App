@@ -9,6 +9,7 @@ exports.login = async (req, res, next) => {
 
     try {
         const user = await User.findOne({ email: email });
+        console.log(user)
         if (user) {
             const doesMatch = await bcrypt.compare(password, user.password);
             if (doesMatch) {
@@ -17,8 +18,10 @@ exports.login = async (req, res, next) => {
                     email: email,
                     password: password
                 }, '&Quantum$Leap@123%', { expiresIn: '10h' });
+                console.log("1")
                 res.status(200).json({ message: 'User logged in!', name: user.name, email: user.email, token: token });
             } else {
+                console.log("2")
                 return res.status(400).json({ message: 'Invalid username or password' });
             }
         } else {
@@ -26,6 +29,7 @@ exports.login = async (req, res, next) => {
         }
     }
     catch (err) {
+        console.log(err)
         return res.status(500).json({ error: err });
     }
 
@@ -47,6 +51,7 @@ exports.signup = async (req, res, next) => {
         const user = await new_user.save();
         return res.status(201).json({ message: 'New user created!', user: user });
     } catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 }

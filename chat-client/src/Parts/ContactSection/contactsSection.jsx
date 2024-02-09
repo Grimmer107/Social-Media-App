@@ -5,10 +5,17 @@ import Context from '../../Context/context';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const logout = (navigate) => {
+    localStorage.setItem('token', "");
+    localStorage.setItem('name', "");
+    localStorage.setItem('email', "");
+    navigate('/');
+}
+
 const ContactSection = (props) => {
     const [contacts, setContacts] = useState([]);
-    let navigate = useNavigate();
-    const {contactFlag} = useContext(Context);
+    const navigate = useNavigate();
+    const { contactFlag } = useContext(Context);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -25,11 +32,11 @@ const ContactSection = (props) => {
                 Authorization: 'Bearer ' + token
             },
         })
-        .then((response) => {
-            setContacts(response.data.contacts);
-        }).catch(err => console.log(err));
+            .then((response) => {
+                setContacts(response.data.contacts);
+            }).catch(err => console.log(err));
 
-    }, [contactFlag]);
+    }, [contactFlag, navigate]);
 
     return (
         <div className={Classes.body}>
@@ -42,7 +49,7 @@ const ContactSection = (props) => {
                 </div>
             </div>
             <div className={Classes.footer}>
-                <button>Logout</button>
+                <button onClick={() => logout(navigate)}>Logout</button>
             </div>
         </div>
     );

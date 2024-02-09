@@ -8,8 +8,6 @@ import chatting_image from '../../Assets/img/chat_background.svg';
 
 import { useNavigate } from 'react-router-dom';
 
-const socket = io.connect('ws://localhost:8900')
-
 const Login = () => {
 
     const emailRef = useRef(null);
@@ -17,7 +15,7 @@ const Login = () => {
     const [formSubmit, setFormSubmit] = useState(false);
 
     let navigate = useNavigate();
-    
+
     const onFormSubmit = (e) => {
         e.preventDefault();
         setFormSubmit(true);
@@ -33,19 +31,21 @@ const Login = () => {
                     password: passwordRef.current.value
                 }
             })
-            .then(response => {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('name', response.data.name);
-                localStorage.setItem('email', response.data.email);
-                const remainingMilliseconds = 60 * 60 * 1000;
-                const expiryDate = new Date(
-                  new Date().getTime() + remainingMilliseconds
-                );
-                localStorage.setItem('expiryDate', expiryDate.toISOString());
-                socket.emit('add_user', response.data.email)
-                navigate('/massenger');
-            })
-            .catch(err => console.log(err));
+                .then(response => {
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('name', response.data.name);
+                    localStorage.setItem('email', response.data.email);
+                    const remainingMilliseconds = 60 * 60 * 1000;
+                    const expiryDate = new Date(
+                        new Date().getTime() + remainingMilliseconds
+                    );
+                    console.log(expiryDate.toISOString())
+                    localStorage.setItem('expiryDate', expiryDate.toISOString());
+                    const socket = io.connect('ws://localhost:8900')
+                    socket.emit('add_user', response.data.email)
+                    navigate('/massenger');
+                })
+                .catch(err => console.log(err));
         }
     }, [formSubmit, navigate]);
 

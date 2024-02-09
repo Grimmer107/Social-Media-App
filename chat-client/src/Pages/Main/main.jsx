@@ -10,23 +10,22 @@ import Context from '../../Context/context';
 
 import { io } from 'socket.io-client';
 
-const token = localStorage.getItem('token');
-const expiryDate = localStorage.getItem('expiryDate');
-const userId = localStorage.getItem('email');
-
-const socket = io.connect('ws://localhost:8900');
-
 const Main = () => {
 
     let navigate = useNavigate();
 
     const [contactFlag, setContactFlag] = useState(false);
-    const [currentContact, setCurrentContact] = useState({name: "", email: "", image: ""});
+    const [currentContact, setCurrentContact] = useState({ name: "", email: "", image: "" });
 
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const expiryDate = localStorage.getItem('expiryDate');
+        const userId = localStorage.getItem('email');
 
+        const socket = io.connect('ws://localhost:8900');
         socket.emit('add_user', userId);
+
         if (!token || !expiryDate) {
             navigate('/');
         }
