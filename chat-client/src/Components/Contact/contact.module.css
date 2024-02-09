@@ -40,5 +40,6 @@
 .message {
     margin: 0;
     margin-top: 4px;
+    min-height: 1.75em;
     color: #b7a9b5;
 }

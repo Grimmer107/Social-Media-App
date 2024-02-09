@@ -70,9 +70,9 @@ const Chat = () => {
                                 return { self: false, message: mess.content, image: currentContact.image }
                             }
                         })
-                        setCurrentProfileImage(profiler);
                         setFeedMessages(feed);
                         setContactChanged(false)
+                        setCurrentProfileImage(profiler);
                     }).catch(err => console.log(err));
             }
         }).catch(err => console.log(err));

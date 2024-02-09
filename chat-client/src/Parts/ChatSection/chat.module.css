@@ -69,29 +69,31 @@
     align-items: center;
     margin-bottom: 1em;
     margin-top: 0.5em;
-    padding-right: 1.25em;
+    padding-right: 1em;
 }
 
 .MessageSection input {
     background-color: #201a2c;
     color: #66636f;
     height: 3em;
-    width: 80%;
+    width: 85%;
     border: none;
     outline: none;
     padding-left: 1.5em;
     font-weight: bold;
     border-radius: 6px;
-    margin-left: 2em;
+    margin-left: 1.5em;
+    margin-right: 0.5em;
 }
 
 .MessageSection img {
     width: 40px;
     height: 40px;
     padding: 0.4em;
-    margin-left: 1em;
-    margin-right: 0.4em;
+    margin-left: 0.5em;
+    /* margin-right: 0.1em; */
     border-radius: 8px;
+    border: 1px solid #231834;
 }
 
 .MessageSection img:hover {

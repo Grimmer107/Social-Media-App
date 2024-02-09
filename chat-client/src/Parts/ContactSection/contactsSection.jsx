@@ -21,6 +21,7 @@ const ContactSection = (props) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const expiryDate = localStorage.getItem('expiryDate');
+
         if (!token || !expiryDate) {
             navigate('/');
         }
@@ -45,7 +46,7 @@ const ContactSection = (props) => {
             <div className={Classes.scrollbox} tabIndex="0">
                 <div className={Classes.contact}>
                     {contacts.map((contact => {
-                        return <Contact key={contact.name} name={contact.name} email={contact.email} />
+                        return <Contact key={contact.name} name={contact.name} email={contact.email} sender={contact.sender} lastMessage={contact.lastMessage} />
                     }))}
                 </div>
             </div>

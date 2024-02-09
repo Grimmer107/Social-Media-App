@@ -1,7 +1,7 @@
-const user = require('../models/user');
-const User = require('../models/user');
 const path = require('path');
-const Coversation = require('../models/coversation');
+const User = require('../models/user');
+const Conversation = require('../models/coversation');
+const Message = require('../models/message');
 
 exports.getUsers = async (req, res, next) => {
     try {
@@ -29,7 +29,21 @@ exports.getContacts = async (req, res, next) => {
     try {
         const data = await User.findOne({ email: req.email }).select('contacts -_id');
         if (data.contacts) {
-            return res.status(200).json({ contacts: data.contacts });
+            const contacts = await Promise.all(data.contacts.map(async (contact) => {
+                let conversation = await Conversation.findOne({ $or: [{ members: [req.email, contact.email] }, { members: [contact.email, req.email] }] });
+                if (conversation) {
+                    let messages = await Message.find({ ConversationId: conversation._id }).select('sender receiver content -_id');
+                    if (messages && messages.length > 0) {
+                        let lastMessage = messages[messages.length - 1]
+                        return { name: contact.name, email: contact.email, sender: lastMessage.sender, lastMessage: lastMessage.content }
+                    } else {
+                        return { name: contact.name, email: contact.email, sender: "", lastMessage: "" }
+                    }
+
+                }
+            }))
+
+            return res.status(200).json({ contacts: contacts });
         } else {
             return res.status(200).json({ message: "You are all alone in this world!" });
         }
@@ -77,7 +91,7 @@ exports.addContact = async (req, res, next) => {
 exports.getDetails = async (req, res, next) => {
     try {
         let email = req.email;
-        if(req.query.email){
+        if (req.query.email) {
             email = req.query.email;
         }
         const user = await User.findOne({ email: email });
