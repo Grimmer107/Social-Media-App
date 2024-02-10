@@ -17,7 +17,7 @@ const username = localStorage.getItem('email');
 const Chat = () => {
 
     const socket = useRef();
-    const imageUpload = useRef(null);
+    const attachmentUpload = useRef(null);
 
     const { currentContact } = useContext(Context);
 
@@ -27,8 +27,11 @@ const Chat = () => {
 
     const [update, setUpdate] = useState(false);
     const [conversationId, setConversationId] = useState(null);
-    const [currentProfileImage, setCurrentProfileImage] = useState()
-    const [contactChanged, setContactChanged] = useState(false)
+    const [currentProfileImage, setCurrentProfileImage] = useState();
+    const [contactChanged, setContactChanged] = useState(false);
+
+    const [formSubmit, setFormSubmit] = useState(false);
+    const [attachmentFile, setAttachmentFile] = useState(null);
 
     let navigate = useNavigate();
 
@@ -132,6 +135,36 @@ const Chat = () => {
     }, [update])
 
 
+
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+        setFormSubmit(true);
+        setAttachmentFile(e.target.files[0]);
+    }
+
+
+    useEffect(() => {
+        if (formSubmit === true) {
+            console.log("File")
+            const formData = new FormData();
+            formData.append('attachmentFile', attachmentFile);
+            console.log(attachmentFile)
+
+            axios.post('http://localhost:8080/attachment',
+                formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": 'Bearer ' + token
+                }
+            })
+                .then(response => {
+                    console.log("File uploaded!")
+                })
+                .catch(err => console.log(err));
+        }
+    }, [formSubmit, attachmentFile]);
+
+
     return (
         <div className={Classes.body}>
             <div className={Classes.chatName}>{currentContact.name}</div>
@@ -151,8 +184,8 @@ const Chat = () => {
                 <input type={"text"} placeholder={"Write a message..."} onChange={e => { setNewMessage(e.target.value) }} value={newMessage} />
                 <img src={message_send} alt={"send"} onClick={() => setUpdate(prevState => !prevState)} />
                 <span className={Classes.attacher}>
-                    <img src={attach} alt={"attach"} onClick={() => { imageUpload.current.click(); }} />
-                    <input type={"file"} ref={imageUpload} />
+                    <input id={"attachment"} type={"file"} ref={attachmentUpload} name={"attachment"} onChange={(e) => onFormSubmit(e)} />
+                    <img src={attach} alt={"attach"} onClick={() => { attachmentUpload.current.click(); }} />
                 </span>
             </div>
         </div>

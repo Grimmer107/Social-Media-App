@@ -41,3 +41,17 @@ exports.getMessages = async (req, res, next) => {
         return res.status(500).json(err);
     }
 }
+
+exports.postAttachment = async (req, res, next) => {
+    const file_path = req.files.attachmentFile
+    console.log("att", file_path)
+    try {
+        if (file_path) {
+            return res.status(200).json({ message: "File uploaded!" });
+        }
+
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}

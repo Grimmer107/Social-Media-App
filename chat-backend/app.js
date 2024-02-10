@@ -42,7 +42,11 @@ const fileFilter = (req, file, cb) => {
 app.use(cors());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: false }));
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('profilePic'));
+// app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('profilePic'));
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).fields([
+  { name: 'profilePic', maxCount: 1 },
+  { name: 'attachmentFile', maxCount: 1 }
+]));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/uploads', express.static(path.join(__dirname, 'public', 'uploads')));

@@ -8,4 +8,6 @@ router.post('/send', is_Auth, MessageController.createMessage);
 
 router.get('/messages', is_Auth, MessageController.getMessages);
 
+router.post('/attachment', is_Auth, MessageController.postAttachment);
+
 module.exports = router;

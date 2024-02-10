@@ -13,6 +13,8 @@ const logout = (navigate) => {
     navigate('/');
 }
 
+
+
 const ContactSection = (props) => {
     const [contacts, setContacts] = useState([]);
     const navigate = useNavigate();
