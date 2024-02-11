@@ -32,7 +32,7 @@ exports.getMessages = async (req, res, next) => {
         const conversation = await Conversation.findOne({ $or: [{ members: [self, friend] }, { members: [friend, self] }] });
         if (conversation) {
             conversation_id = conversation._id;
-            const messages = await Message.find({ ConversationId: conversation_id }).select('sender receiver content -_id');
+            const messages = await Message.find({ ConversationId: conversation_id }).select('sender receiver content type -_id');
             if (messages) {
                 return res.status(200).json({ conversationId: conversation._id, messages: messages });
             } else {

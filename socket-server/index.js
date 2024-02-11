@@ -19,10 +19,10 @@ io.on("connection", (socket) => {
     });
 
     //send and get message
-    socket.on("send_message", ({ senderId, receiverId, text }) => {
+    socket.on("send_message", ({ senderId, receiverId, text, type }) => {
         const user = getUser(receiverId);
         // io.to(user.socketId).emit("receive_message", { senderId, text });
-        io.emit("receive_message", { senderId, receiverId, text });
+        io.emit("receive_message", { senderId, receiverId, text, type });
 
     });
 

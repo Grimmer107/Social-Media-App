@@ -32,16 +32,16 @@ exports.getContacts = async (req, res, next) => {
             const contacts = await Promise.all(data.contacts.map(async (contact) => {
                 let conversation = await Conversation.findOne({ $or: [{ members: [req.email, contact.email] }, { members: [contact.email, req.email] }] });
                 if (conversation) {
-                    let messages = await Message.find({ ConversationId: conversation._id }).select('sender receiver content -_id');
+                    let messages = await Message.find({ ConversationId: conversation._id }).select('sender receiver content type -_id');
                     if (messages && messages.length > 0) {
                         let lastMessage = messages[messages.length - 1]
-                        return { name: contact.name, email: contact.email, sender: lastMessage.sender, lastMessage: lastMessage.content }
+                        return { name: contact.name, email: contact.email, sender: lastMessage.sender, lastMessage: lastMessage.content, type: lastMessage.type }
                     } else {
-                        return { name: contact.name, email: contact.email, sender: "", lastMessage: "" }
+                        return { name: contact.name, email: contact.email, sender: "", lastMessage: "", type: "" }
                     }
 
                 } else {
-                    return { name: contact.name, email: contact.email, sender: "", lastMessage: "" }
+                    return { name: contact.name, email: contact.email, sender: "", lastMessage: "", type: "" }
                 }
             }))
 

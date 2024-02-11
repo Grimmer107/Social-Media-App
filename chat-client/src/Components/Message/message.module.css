@@ -55,6 +55,13 @@
     overflow-wrap: break-word;
 }
 
+.imageMessage img {
+  min-width: 10em !important;
+  min-height: 10em !important;
+  border-radius: 10% !important;
+  outline: 2px solid #5e35b1;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 5px;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Classes from './contact.module.css'
 import Context from '../../Context/context';
 
-const Contact = ({ name, email, sender, lastMessage }) => {
+const Contact = ({ name, email, sender, lastMessage, type }) => {
     const { setCurrentContact } = useContext(Context);
     const [imageSrc, setImageSrc] = useState();
     const [update, setUpdate] = useState(false);
@@ -28,7 +28,7 @@ const Contact = ({ name, email, sender, lastMessage }) => {
             </div>
             <div className={Classes.details}>
                 <p className={Classes.name}>{name}</p>
-                <p className={Classes.message}>{lastMessage}</p>
+                <p className={Classes.message}>{type === "image" ? <span><i className="fa-regular fa-image"></i> Photo</span> : lastMessage}</p>
             </div>
         </div>
     );

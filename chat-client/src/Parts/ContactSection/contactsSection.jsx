@@ -46,7 +46,7 @@ const ContactSection = (props) => {
             <div className={Classes.scrollbox} tabIndex="0">
                 <div className={Classes.contact}>
                     {contacts.map((contact => {
-                        return <Contact key={contact.name} name={contact.name} email={contact.email} sender={contact.sender} lastMessage={contact.lastMessage} />
+                        return <Contact key={contact.name} name={contact.name} email={contact.email} sender={contact.sender} lastMessage={contact.lastMessage} type={contact.type} />
                     }))}
                 </div>
             </div>

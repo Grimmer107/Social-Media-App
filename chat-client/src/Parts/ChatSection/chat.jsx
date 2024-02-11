@@ -68,9 +68,9 @@ const Chat = () => {
                         let profiler = `http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/")
                         let feed = contentFeed.map((mess) => {
                             if (mess.sender === username) {
-                                return { self: true, message: mess.content, image: profiler }
+                                return { self: true, message: mess.content, image: profiler, type: mess.type }
                             } else if (mess.sender === currentContact.email) {
-                                return { self: false, message: mess.content, image: currentContact.image }
+                                return { self: false, message: mess.content, image: currentContact.image, type: mess.type }
                             }
                         })
                         setFeedMessages(feed);
@@ -88,10 +88,10 @@ const Chat = () => {
         socket.current.on('receive_message', data => {
             if (data.text) {
                 if (data.senderId === username) {
-                    setReceivedMessage({ self: true, message: data.text });
+                    setReceivedMessage({ self: true, message: data.text, type: data.type });
                 }
                 else if (data.receiverId === username) {
-                    setReceivedMessage({ self: false, message: data.text });
+                    setReceivedMessage({ self: false, message: data.text, type: data.type });
                 }
             }
         });
@@ -124,23 +124,13 @@ const Chat = () => {
                     email: currentContact.email, content: newMessage, conversationId: conversationId, type: "text"
                 }
             }).then((res) => {
-                socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: newMessage });
+                socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: newMessage, type: "text" });
+                // let new_arrival = [...feedMessages, { self: true, message: newMessage, type: "text" }];
+                // setFeedMessages(new_arrival);
                 setNewMessage("");
                 chatEl.current.scrollIntoView({ behavior: "smooth" });
-            }).catch(err => console.log("er", err));
+            }).catch(err => console.log(err));
         }
-    }, [update])
-
-
-
-    const onFormSubmit = (e) => {
-        e.preventDefault();
-        setFormSubmit(true);
-        setAttachmentFile(e.target.files[0]);
-    }
-
-
-    useEffect(() => {
         if (formSubmit === true) {
             const formData = new FormData();
             formData.append('attachmentFile', attachmentFile);
@@ -165,9 +155,9 @@ const Chat = () => {
                                 email: currentContact.email, content: response.data.file_path, conversationId: conversationId, type: "image"
                             }
                         }).then((res) => {
-                            socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: attachmentFile.name });
-                            let new_arrival = [...feedMessages, { self: true, message: attachmentFile.name }];
-                            setFeedMessages(new_arrival);
+                            socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: attachmentFile.name, type: "image" });
+                            // let new_arrival = [...feedMessages, { self: true, message: attachmentFile.name, type: "image" }];
+                            // setFeedMessages(new_arrival);
                             attachmentUpload.current.value = null
                             chatEl.current.scrollIntoView({ behavior: "smooth" });
                             setFormSubmit(false);
@@ -176,7 +166,15 @@ const Chat = () => {
                 })
                 .catch(err => console.log(err));
         }
-    }, [formSubmit, attachmentFile]);
+    }, [update, formSubmit, attachmentFile])
+
+
+
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+        setFormSubmit(true);
+        setAttachmentFile(e.target.files[0]);
+    }
 
 
     return (
@@ -186,10 +184,10 @@ const Chat = () => {
                 {contactChanged === false ? feedMessages.map(message => {
                     if (message.self === true) {
                         return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                            self={message.self} content={message.message} image={currentProfileImage} />
+                            self={message.self} content={message.message} image={currentProfileImage} type={message.type} />
                     } else {
                         return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                            self={message.self} content={message.message} image={currentContact.image} />
+                            self={message.self} content={message.message} image={currentContact.image} type={message.type} />
                     }
                 }) : null}
                 <div className={Classes.dummyDiv} ref={chatEl}>.</div>
