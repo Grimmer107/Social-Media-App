@@ -1,5 +1,6 @@
 const Conversation = require('../models/coversation');
 const Message = require('../models/message');
+const User = require("../models/user")
 
 exports.createMessage = async (req, res, next) => {
 
@@ -47,14 +48,21 @@ exports.getMessages = async (req, res, next) => {
 }
 
 exports.postAttachment = async (req, res, next) => {
-    const file_path = req.files.attachmentFile[0].path
+    const file_path = req.files.attachmentFile[0].path;
+    const email = req.email;
     try {
         if (file_path) {
+            let user = await User.findOne({ email: email });
+            if (!user.media.includes(file_path)) {
+                const newMedia = [...user.media, file_path]
+                user.media = newMedia
+                await user.save();
+            }
             return res.status(200).json({ message: "File uploaded!", file_path: file_path });
         }
 
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return res.status(500).json(err);
     }
 }

@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Classes from './gallery.module.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import Pic1 from '../../Assets/img/cloud_on_mountain.jpg';
-import Pic2 from '../../Assets/img/debian-galaxy.png';
-import Pic3 from '../../Assets/img/market.jpg';
-import Pic4 from '../../Assets/img/subtle_ferns.jpg';
+
+const expiryDate = localStorage.getItem('expiryDate');
+const username = localStorage.getItem('email');
+const token = localStorage.getItem('token');
 
 const Gallery = () => {
+
+    const navigate = useNavigate();
+    const [media, setMedia] = useState([]);
+
+    useEffect(() => {
+
+        if (!token || !expiryDate) {
+            navigate('/');
+        }
+        if (new Date(expiryDate) <= new Date()) {
+            navigate('/');
+        }
+
+        axios.get(`http://localhost:8080/media`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then(response => {
+            setMedia(response.data.media)
+        }).catch((error) => {
+            console.log(error)
+        })
+
+    }, [])
     return (
         <div className={Classes.scrollbox}>
             <div className={Classes.body}>
-                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
-                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
-                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
-                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
-                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
-                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
-                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
-                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
-                <img src={Pic1} alt={"pic1"} loading={'lazy'} />
-                <img src={Pic2} alt={"pic2"} loading={'lazy'} />
-                <img src={Pic3} alt={"pic3"} loading={'lazy'} />
-                <img src={Pic4} alt={"pic4"} loading={'lazy'} />
+                {media && media.map((image) => {
+                    return <img key={image} src={`http://localhost:8080\\${image}`} alt={"media"} loading={'lazy'} />
+                })}
+
             </div>
         </div>
     );

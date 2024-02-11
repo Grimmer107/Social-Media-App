@@ -31,6 +31,10 @@ const UserSchema = Schema({
     contacts: {
         type: Array,
         default: []
+    },
+    media: {
+        type: Array,
+        default: []
     }
 });
 

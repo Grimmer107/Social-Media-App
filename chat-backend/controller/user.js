@@ -118,3 +118,15 @@ exports.getImage = async (req, res, next) => {
         return res.status(500).json(err);
     }
 }
+
+exports.getMedia = async (req, res, next) => {
+    try {
+        const email = req.email
+        const user = await User.findOne({ email: email });
+        return res.status(200).json({ message: "Media Found!", media: user.media });
+
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}

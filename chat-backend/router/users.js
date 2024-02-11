@@ -9,5 +9,6 @@ router.get('/users', is_Auth, UserController.getUsers);
 router.get('/contacts', is_Auth, UserController.getContacts);
 router.get('/details', is_Auth, UserController.getDetails);
 router.get('/getImage', is_Auth, UserController.getImage);
+router.get('/media', is_Auth, UserController.getMedia);
 
 module.exports = router;
