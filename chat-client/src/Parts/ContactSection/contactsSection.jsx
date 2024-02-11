@@ -13,8 +13,6 @@ const logout = (navigate) => {
     navigate('/');
 }
 
-
-
 const ContactSection = (props) => {
     const [contacts, setContacts] = useState([]);
     const navigate = useNavigate();
@@ -34,7 +32,7 @@ const ContactSection = (props) => {
         axios.get('http://localhost:8080/contacts', {
             headers: {
                 Authorization: 'Bearer ' + token
-            },
+            }
         })
             .then((response) => {
                 setContacts(response.data.contacts);

@@ -40,6 +40,8 @@ exports.getContacts = async (req, res, next) => {
                         return { name: contact.name, email: contact.email, sender: "", lastMessage: "" }
                     }
 
+                } else {
+                    return { name: contact.name, email: contact.email, sender: "", lastMessage: "" }
                 }
             }))
 
@@ -71,7 +73,7 @@ exports.addContact = async (req, res, next) => {
                 Otheruser.contacts = OthernewContacts;
                 await Otheruser.save();
                 if (Otheruser) {
-                    const newConversation = new Coversation({ members: [req.email, email] });
+                    const newConversation = new Conversation({ members: [req.email, email] });
                     const conversation = await newConversation.save();
                     return res.status(200).json({ message: "You have a new friend!", conversationId: conversation._id });
                 } else {

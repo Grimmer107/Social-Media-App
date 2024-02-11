@@ -69,12 +69,12 @@ const Chat = () => {
                         let feed = contentFeed.map((mess) => {
                             if (mess.sender === username) {
                                 return { self: true, message: mess.content, image: profiler }
-                            } else {
+                            } else if (mess.sender === currentContact.email) {
                                 return { self: false, message: mess.content, image: currentContact.image }
                             }
                         })
                         setFeedMessages(feed);
-                        setContactChanged(false)
+                        setContactChanged(false);
                         setCurrentProfileImage(profiler);
                     }).catch(err => console.log(err));
             }
@@ -84,7 +84,7 @@ const Chat = () => {
 
 
     useEffect(() => {
-        socket.current = io.connect('ws://localhost:8900')
+        socket.current = io.connect('ws://localhost:8900');
         socket.current.on('receive_message', data => {
             if (data.text) {
                 if (data.senderId === username) {
@@ -121,16 +121,13 @@ const Chat = () => {
                     Authorization: 'Bearer ' + token
                 },
                 data: {
-                    email: currentContact.email, content: newMessage, conversationId: conversationId
+                    email: currentContact.email, content: newMessage, conversationId: conversationId, type: "text"
                 }
             }).then((res) => {
-                // let new_arrival = [...feedMessages];
-                // new_arrival.push({ self: true, message: res.data.message.content });
-                // setFeedMessages(new_arrival);
                 socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: newMessage });
                 setNewMessage("");
                 chatEl.current.scrollIntoView({ behavior: "smooth" });
-            }).catch(err => console.log(err));
+            }).catch(err => console.log("er", err));
         }
     }, [update])
 
@@ -145,10 +142,8 @@ const Chat = () => {
 
     useEffect(() => {
         if (formSubmit === true) {
-            console.log("File")
             const formData = new FormData();
             formData.append('attachmentFile', attachmentFile);
-            console.log(attachmentFile)
 
             axios.post('http://localhost:8080/attachment',
                 formData, {
@@ -158,7 +153,26 @@ const Chat = () => {
                 }
             })
                 .then(response => {
-                    console.log("File uploaded!")
+                    if (attachmentFile) {
+                        axios({
+                            url: 'http://localhost:8080/send',
+                            method: 'POST',
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                                "Content-Type": "multipart/form-data"
+                            },
+                            data: {
+                                email: currentContact.email, content: response.data.file_path, conversationId: conversationId, type: "image"
+                            }
+                        }).then((res) => {
+                            socket.current.emit('send_message', { senderId: username, receiverId: currentContact.email, text: attachmentFile.name });
+                            let new_arrival = [...feedMessages, { self: true, message: attachmentFile.name }];
+                            setFeedMessages(new_arrival);
+                            attachmentUpload.current.value = null
+                            chatEl.current.scrollIntoView({ behavior: "smooth" });
+                            setFormSubmit(false);
+                        }).catch(err => console.log(err));
+                    }
                 })
                 .catch(err => console.log(err));
         }

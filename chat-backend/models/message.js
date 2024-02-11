@@ -17,6 +17,10 @@ const MessageSchema = Schema({
         required: true
     },
     content: {
+        type: Schema.Types.Mixed,
+        required: true
+    },
+    type: {
         type: String,
         required: true
     }
