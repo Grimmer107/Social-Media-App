@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from "react-spinners";
 
 const expiryDate = localStorage.getItem('expiryDate');
-const username = localStorage.getItem('email');
 const token = localStorage.getItem('token');
 
 const Gallery = () => {

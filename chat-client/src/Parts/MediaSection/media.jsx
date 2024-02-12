@@ -30,19 +30,19 @@ const Media = () => {
                 Authorization: 'Bearer ' + token
             }
         })
-        .then(response => {
-            setUser(response.data.userDetails);
-            setProfileImg(`http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/"));
-        }).catch(err => console.log(err));
+            .then(response => {
+                setUser(response.data.userDetails);
+                setProfileImg(`http://localhost:8080\\` + response.data.userDetails.profile_picture.replace(/\134/g, "/"));
+            }).catch(err => console.log(err));
     }, []);
 
     return (
         <div className={Classes.body}>
             <div className={Classes.tabs}>
-                <div className={`${showProfile ? Classes.files : Classes.files_active }`} onClick={(e) => setShowProfile(false)}>Shared Files</div>
-                <div className={`${showProfile ? Classes.profile_active : Classes.profile }`} onClick={(e) => setShowProfile(true)}>User Profile</div>
+                <div className={`${showProfile ? Classes.files : Classes.files_active}`} onClick={(e) => setShowProfile(false)}>Shared Files</div>
+                <div className={`${showProfile ? Classes.profile_active : Classes.profile}`} onClick={(e) => setShowProfile(true)}>User Profile</div>
             </div>
-            {showProfile ? <div className={Classes.user_profile}><Profile CurrentUser={user} image={profileImg}/></div> : <div className={Classes.gallery}><Gallery /></div>}
+            {showProfile ? <div className={Classes.user_profile}><Profile currentUser={user} image={profileImg} /></div> : <div className={Classes.gallery}><Gallery /></div>}
             <div className={Classes.footer}><button>Hi end!</button></div>
         </div>
     );

@@ -20,10 +20,6 @@ const UserSchema = Schema({
         type: String,
         required: true,
     },
-    friends: {
-        type: Number,
-        default: 0
-    },
     profile_picture: {
         type: String,
         default: ""
