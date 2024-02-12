@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-
+import { BeatLoader } from 'react-spinners'
 import { io } from 'socket.io-client';
 
 import Classes from './login.module.css';
@@ -40,18 +40,21 @@ const Login = () => {
                         new Date().getTime() + remainingMilliseconds
                     );
                     localStorage.setItem('expiryDate', expiryDate.toISOString());
-                    const socket = io.connect('ws://localhost:8900')
-                    socket.emit('add_user', response.data.email)
+                    const socket = io.connect('ws://localhost:8900');
+                    socket.emit('add_user', response.data.email);
                     navigate('/massenger');
                 })
-                .catch(err => console.log(err));
+                .catch((err) => {
+                    console.log(err)
+                    setFormSubmit(false)
+                });
         }
     }, [formSubmit, navigate]);
 
     return (
         <div className={Classes.body}>
             <div className={Classes.form__content}>
-                <div className={Classes.signup__image}>
+                <div className={Classes.signin__image}>
                     <img src={chatting_image} alt={"signup"} loading={'lazy'} />
                 </div>
                 <form onSubmit={(e) => onFormSubmit(e)}>
@@ -64,8 +67,12 @@ const Login = () => {
                         <input type={"password"} name={"password"} required ref={passwordRef} />
                         <span>Password</span>
                     </div>
-                    <input type={"submit"} name={"submit"} />
-                    <div className={Classes.signup__link} onClick={() => navigate('/signup')}>
+                    {!formSubmit ? <input className={Classes.signin__submit__input} type={"submit"} name={"submit"} value={"Login"} /> :
+                        (<div className={Classes.signin__loader__div}>
+                            <BeatLoader size={10} color={"white"} className={Classes.signin__loader} />
+                        </div>)
+                    }
+                    <div className={Classes.signin__link} onClick={() => navigate('/signup')}>
                         Don't have an account? Sign up
                     </div>
                 </form>

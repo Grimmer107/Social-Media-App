@@ -16,25 +16,27 @@
 
 .form__content {
     margin: 0;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-radius: 4em;
+    border-radius: 0em;
     background-color: white;
 }
 
 .signup__image {
-    flex: 1 1 55%;
+    flex: 1 1 50%;
     background-color: white;
     width: 100%;
     height: 100%;
     object-fit: cover;
     padding: 2.5em;
     background-color: rgba(25,24,43,255);
-    border-radius: 4em;
+    border-radius: 0em;
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
 }
 
 .signup__image img {
@@ -52,6 +54,11 @@ form {
     justify-content: center;
     font-family: 'Open Sans', sans-serif;
     align-items: center;
+}
+
+form h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5em;
 }
 
 
@@ -106,34 +113,54 @@ form input[type="file"] {
 
 .file__input {
     width: 75%;
+    /* height: 2.25em; */
     color: white;
-    padding: 0.75em;
+    padding: 0.8em;
     font-size: 0.8rem;
     margin-bottom: 1.5em;
     background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154));
     text-align: center;
-    border-radius: 16px;
+    border-radius: 8px;
 }
 
 .file__input:hover {
     cursor: pointer;
 }
 
-form input[type="submit"] {
+.singup__submit__input {
     width: 40%;
-    color: white;
-    padding: 0.5em;
-    font-size: 0.8rem;
-    /* background-color: #543795; */
+    display: flex;
+    margin-top: 1em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 2.75em;
     background-color: #2f2552;
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 16px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    outline: none;
 }
 
-form input[type="submit"]:hover {
-    background-color: #211a3d;
+.singup__submit__input:hover {
     cursor: pointer;
+    background-color: #211a3d;
+}
+
+.signup__loader__div {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 2.25em;
+    background-color: #2f2552;
+    border-radius: 8px;
+    margin-top: 0.9em;
+}
+
+.signup__loader {
+    margin: auto;
 }
 
 .login__link {

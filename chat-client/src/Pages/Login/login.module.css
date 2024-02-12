@@ -16,28 +16,30 @@
 
 .form__content {
     margin: 0;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-radius: 4em;
+    border-radius: 0em;
     background-color: white;
 }
 
-.signup__image {
-    flex: 1 2 60%;
+.signin__image {
+    flex: 1 2 50%;
     background-color: white;
     width: 100%;
     height: 100%;
     object-fit: cover;
     padding: 2.5em;
     background-color: rgba(25,24,43,255);
-    border-radius: 4em;
+    border-radius: 0em;
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
 }
 
-.signup__image img {
+.signin__image img {
     width: 90%;
     height: 90%;
 }
@@ -59,7 +61,7 @@ form {
     position: relative;
     width: 75%;
     height: 2.75em;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
     border-radius: 5px;
 }
 
@@ -100,47 +102,63 @@ form .input__body input:focus {
     border: 2px solid #2f2552;
 }
 
-form h1 {
+/* form h1 {
     font-family: 'La Belle Aurore', cursive;
-}
+} */
 
-form input[type="submit"] {
+.signin__submit__input {
     width: 40%;
     color: white;
-    padding: 0.5em;
     font-size: 0.8rem;
-    /* background-color: #543795; */
     background-color: #2f2552;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
-    border-radius: 16px;
+    border-radius: 8px;
     border: none;
+    height: 2.75em;
     border: 2px solid transparent;
+    margin-top: 1.5em;
 }
 
-form input[type="submit"]:hover {
+.signin__submit__input:hover {
     background-color: #211a3d;
     cursor: pointer;
 }
 
-.signup__link {
+.signin__loader__div {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 2.25em;
+    background-color: #2f2552;
+    border-radius: 8px;
+    margin-top: 1.1em;
+}
+
+.signin__loader {
+    margin: auto;
+}
+
+.signin__link {
     font-size: 0.8rem;
     margin-top: 1em;
 }
 
-.signup__link:hover {
+.signin__link:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
 @media screen and (max-width:768px) {
-    .signup__image {
+    .signin__image {
         flex: 1 2 50%;
     }
 }
 
 @media screen and (max-width:580px) {
-    .signup__image {
+    .signin__image {
         display: none;
     }
 }

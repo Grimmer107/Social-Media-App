@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// BeatLoader
+import { BeatLoader } from 'react-spinners'
+
 import Classes from './signup.module.css';
 import chatting_image from '../../Assets/img/chat_background.svg';
 
@@ -14,6 +15,7 @@ const Signup = () => {
 
     const [formSubmit, setFormSubmit] = useState(false);
     const [userImage, setUserImage] = useState(null);
+    const [imageUploaded, setImageUploaded] = useState(false)
 
     let navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const Signup = () => {
         if (e.target.file.files.length > 0) {
             setUserImage(e.target.file.files[0]);
         } else {
-            setUserImage("public\\images\\user.png")
+            setUserImage("public\\images\\user.png");
         }
     }
 
@@ -55,7 +57,7 @@ const Signup = () => {
                     <img src={chatting_image} alt={"signup"} loading={'lazy'} />
                 </div>
                 <form onSubmit={(e) => onFormSubmit(e)} encType="multipart/form-data">
-                    <h1>Chaty</h1>
+                    <h1>Sign up</h1>
                     <div className={Classes.input__body}>
                         <input type={"text"} name={"name"} required ref={nameRef} />
                         <span>Name</span>
@@ -69,16 +71,23 @@ const Signup = () => {
                         <span>Password</span>
                     </div>
                     <label htmlFor={"file"} className={Classes.file__input}>
-                        <input id={"file"} type={"file"} name={"file"} ref={fileRef} />
-                        Upload Picture
+                        <input id={"file"} type={"file"} name={"file"} ref={fileRef} onChange={(e) => setImageUploaded((prevState) => {
+                            return (fileRef.current && fileRef.current.value) ? true : false
+                        })} />
+                        < span > {imageUploaded ? "Uploaded" : "Upload Picture"}</span>
                     </label>
-                    <input type={"submit"} name={"submit"} />
+                    {!formSubmit ?
+                        <input className={Classes.singup__submit__input} type={"submit"} name={"submit"} value={"Sign up"} /> :
+                        (<div className={Classes.signup__loader__div}>
+                            <BeatLoader size={10} color={"white"} className={Classes.signup__loader} />
+                        </div>)
+                    }
                     <div className={Classes.login__link} onClick={() => navigate('/')}>
                         Return to login
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     );
 };
 
