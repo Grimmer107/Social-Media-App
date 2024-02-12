@@ -20,7 +20,11 @@ const Signup = () => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         setFormSubmit(true);
-        setUserImage(e.target.file.files[0]);
+        if (e.target.file.files.length > 0) {
+            setUserImage(e.target.file.files[0]);
+        } else {
+            setUserImage("public\\images\\user.png")
+        }
     }
 
     useEffect(() => {

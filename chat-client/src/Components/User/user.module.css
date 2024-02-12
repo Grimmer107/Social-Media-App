@@ -5,11 +5,11 @@
 .body {
     display: flex;
     flex-direction: row;
-    padding: 1.25em 1em;
+    padding: 0.9em 0.5em;
     background-color: #12101a;
     background-image: linear-gradient(to right, rgba(25,24,43,255), rgba(18,26,40,1));
     margin-top: 1em;
-    border-radius: 12px;
+    border-radius: 8px;
     align-items: center;
     font-size: 0.75rem;
     width: 100%;
@@ -36,6 +36,7 @@
 .profile .details p {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
+    margin: auto;
     font-weight: 500;
     font-size: 1rem;
     color: #6f4eaf;
@@ -51,20 +52,24 @@
 }
 
 .button button {
-    padding: 0.75em 1em;
-    background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154));
+    padding: 1em 1em;
+    /* background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154)); */
+    background-color: #543795;
     color: white;
     font-family: 'Open Sans', sans-serif;
     border: none;
     outline: none;
+    font-size: 0.7rem;
     min-width: 10em;
-    border-radius: 10px;
+    border-radius: 6px;
+    margin-right: 0.75em;
     text-align: center;
 }
 
 .button button:hover {
     cursor: pointer;
-    background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154));
+    /* background-image: linear-gradient(to right, rgb(72, 27, 115), rgb(35, 118, 154)); */
+    background-color: #4b2996;
 }
 
 @media screen and (max-width: 880px) {

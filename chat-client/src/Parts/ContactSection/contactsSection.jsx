@@ -51,7 +51,7 @@ const ContactSection = (props) => {
                 </div>
             </div>
             <div className={Classes.footer}>
-                <button onClick={() => logout(navigate)}>Logout</button>
+                <button onClick={() => logout(navigate)}><i className="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;Logout</button>
             </div>
         </div>
     );

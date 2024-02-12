@@ -36,14 +36,19 @@ exports.signup = async (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    const profile_picture = req.files.profilePic[0].path
+    let profilePicture
+    if (req.files.profilePic && req.files.profilePic.length > 0) {
+        profilePicture = req.files.profilePic[0].path
+    } else {
+        profilePicture = req.body.profilePic
+    }
     try {
         const hashedPassword = await bcrypt.hash(password, 12)
         const newUser = new User({
             name: name,
             email: email,
             password: hashedPassword,
-            profile_picture: profile_picture
+            profile_picture: profilePicture
         });
         const user = await newUser.save();
         return res.status(201).json({ message: 'New user created!', user: user });

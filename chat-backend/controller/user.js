@@ -14,7 +14,7 @@ exports.getUsers = async (req, res, next) => {
             })
             const filteredUsers = OtherUsers.filter(item => !contactNames.includes(item.email));
             const userdata = filteredUsers.map((user) => {
-                return { name: user.name, email: user.email };
+                return { name: user.name, email: user.email, profile_picture: user.profile_picture };
             })
             return res.status(200).json({ message: "Make new friends", users: userdata });
         } else {

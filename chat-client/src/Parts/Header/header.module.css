@@ -1,7 +1,7 @@
 .body {
     display: flex;
     flex-direction: row;
-    padding: 0em 3em;
+    padding: 0em 1.5em 0em 3em;
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
@@ -9,12 +9,14 @@
 
 .title {
     box-sizing: border-box;
-    font-size: 1.2rem;
+    /* font-size: 1.3rem; */
+    font-size: 1.3rem;
+    margin-right: 0.5em;
     font-family: 'Montserrat', sans-serif;
     /* font-family: 'La Belle Aurore', cursive; */
 }
 .title i {
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 
 .notifications {

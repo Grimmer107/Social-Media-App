@@ -1,7 +1,7 @@
 .body {
     display: flex;
     flex-direction: row;
-    padding: 1.5em 1em;
+    padding: 1em 1em;
     background-color: #12101a;
     /* background-image: linear-gradient(to right, rgba(18,26,40,255), rgba(18,26,40,1)); */
     background-image: linear-gradient(to right, rgba(25,24,43,255), rgba(18,26,40,1));

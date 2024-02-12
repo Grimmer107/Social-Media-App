@@ -113,7 +113,7 @@ const Chat = () => {
             navigate('/');
         }
 
-        if (newMessage !== "") {
+        if (newMessage !== "" && currentContact.email) {
             axios({
                 url: 'http://localhost:8080/send',
                 method: 'POST',

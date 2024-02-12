@@ -8,8 +8,22 @@ import Classes from './modal.module.css';
 import User from '../User/user';
 
 const Modal = ({ open, setOpen }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState(users)
+
+  const onSearchHandle = (e) => {
+    const searchQuery = e.target.value;
+    let tmpUsers;
+    if (searchQuery !== "") {
+      tmpUsers = users.filter((user) => {
+        return user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      })
+    } else {
+      tmpUsers = users
+    }
+    setFilteredUsers(tmpUsers)
+  }
 
   useEffect(() => {
 
@@ -27,9 +41,9 @@ const Modal = ({ open, setOpen }) => {
         Authorization: 'Bearer ' + token
       }
     })
-    .then((response) => {
-      setUsers(response.data.users);
-    }).catch(err => console.log(err));
+      .then((response) => {
+        setUsers(response.data.users);
+      }).catch(err => console.log(err));
 
   }, [open]);
 
@@ -44,16 +58,16 @@ const Modal = ({ open, setOpen }) => {
 
           <div className={Classes.Search__section}>
             <div className={Classes.search}>
-              <input type={"text"} placeholder={"Search for people"} spellCheck={"false"} />
+              <input type={"text"} placeholder={"Search for people"} spellCheck={"false"} onChange={(e) => onSearchHandle(e)} />
               <i className={"fa-solid fa-magnifying-glass"}></i>
             </div>
-            <div className={Classes.search__button}><button>Search</button></div>
+            {/* <div className={Classes.search__button}><button>Search</button></div> */}
             <div className={Classes.close__button} onClick={e => setOpen(false)}><i className={"fa-solid fa-xmark"}></i></div>
           </div>
           <div className={Classes.scrollbox}>
             <div className={Classes.add__friend}>
-              {users.map(user => {
-                return <User key={user.name} name={user.name} email={user.email} />
+              {filteredUsers.map(user => {
+                return <User key={user.name} name={user.name} email={user.email} profilePic={user.profile_picture} />
               })}
             </div>
           </div>

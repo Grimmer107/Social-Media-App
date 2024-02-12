@@ -2,16 +2,15 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import profile from '../../Assets/img/profile.jpg';
 import Classes from './user.module.css';
 import Context from '../../Context/context';
 
-const User = ({ name, email }) => {
+const User = ({ name, email, profilePic }) => {
     const [contactStatus, setContactStatus] = useState("Add to Contacts");
-    let navigate = useNavigate();
     const { setContactFlag } = useContext(Context);
-
     const UserRef = useRef(null);
+
+    let navigate = useNavigate();
 
     useEffect(() => {
 
@@ -19,6 +18,7 @@ const User = ({ name, email }) => {
 
             const token = localStorage.getItem('token');
             const expiryDate = localStorage.getItem('expiryDate');
+
             if (!token || !expiryDate) {
                 navigate('/');
             }
@@ -45,7 +45,7 @@ const User = ({ name, email }) => {
     return (
         <div className={Classes.body} ref={UserRef}>
             <div className={Classes.profile}>
-                <div className={Classes.image}><img src={profile} alt={"profile"} loading={'lazy'} /></div>
+                <div className={Classes.image}><img src={`http://localhost:8080\\${profilePic}`} alt={"profile"} loading={'lazy'} /></div>
                 <div className={Classes.details}><p>{name}</p></div>
             </div>
             <div className={Classes.button} onClick={() => {
@@ -55,7 +55,8 @@ const User = ({ name, email }) => {
                     setContactFlag(prevState => !prevState)
                 }, 800)
             }}>
-                <button>{contactStatus}</button></div>
+                <button>{contactStatus}</button>
+            </div>
         </div>
     );
 };

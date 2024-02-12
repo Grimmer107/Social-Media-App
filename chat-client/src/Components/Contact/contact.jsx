@@ -6,8 +6,6 @@ import Context from '../../Context/context';
 const Contact = ({ name, email, sender, lastMessage, type }) => {
     const { setCurrentContact } = useContext(Context);
     const [imageSrc, setImageSrc] = useState();
-    const [update, setUpdate] = useState(false);
-
     const token = localStorage.getItem('token');
 
     useEffect(() => {
