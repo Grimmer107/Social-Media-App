@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners'
 import { io } from 'socket.io-client';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Classes from './login.module.css';
 import chatting_image from '../../Assets/img/chat_background.svg';
@@ -46,6 +47,13 @@ const Login = () => {
                 })
                 .catch((err) => {
                     console.log(err)
+                    toast.error('Invalid username or password!', {
+                        style: {
+                            borderRadius: '10px',
+                            background: '#2f2552',
+                            color: '#fff',
+                        }
+                    });
                     setFormSubmit(false)
                 });
         }
@@ -53,6 +61,9 @@ const Login = () => {
 
     return (
         <div className={Classes.body}>
+            <Toaster containerStyle={{
+                position: 'relative', left: "27.5%", top: "5%", width: "20em"
+            }} />
             <div className={Classes.form__content}>
                 <div className={Classes.signin__image}>
                     <img src={chatting_image} alt={"signup"} loading={'lazy'} />
