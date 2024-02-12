@@ -4,10 +4,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from "react-spinners";
 
-const expiryDate = localStorage.getItem('expiryDate');
-const token = localStorage.getItem('token');
-
 const Gallery = () => {
+
+    const expiryDate = localStorage.getItem('expiryDate');
+    const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
     const [media, setMedia] = useState();

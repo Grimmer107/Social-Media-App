@@ -10,10 +10,6 @@ import message_send from '../../Assets/img/message_send.png';
 import attach from '../../Assets/img/icons8-attach-48.png';
 import Context from '../../Context/context';
 
-const token = localStorage.getItem('token');
-const expiryDate = localStorage.getItem('expiryDate');
-const username = localStorage.getItem('email');
-
 
 const Chat = () => {
 
@@ -37,6 +33,10 @@ const Chat = () => {
     let navigate = useNavigate();
 
     const chatEl = useRef(null);
+
+    const token = localStorage.getItem('token');
+    const expiryDate = localStorage.getItem('expiryDate');
+    const username = localStorage.getItem('email');
 
     useEffect(() => {
         setContactChanged(true)

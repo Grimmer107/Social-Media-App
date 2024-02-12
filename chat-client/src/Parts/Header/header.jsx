@@ -3,10 +3,11 @@ import Classes from './header.module.css';
 import Modal from '../../Components/Modal/modal';
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
-const username = localStorage.getItem('email');
 
 const Header = () => {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('email');
+
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState();
 

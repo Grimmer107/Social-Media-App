@@ -6,10 +6,6 @@ import Classes from './media.module.css';
 import Gallery from '../../Components/Gallery/gallery';
 import Profile from '../../Components/Profile/profile';
 
-const token = localStorage.getItem('token');
-const expiryDate = localStorage.getItem('expiryDate');
-const username = localStorage.getItem('email');
-
 const Media = () => {
     let navigate = useNavigate();
     const [showProfile, setShowProfile] = useState(false)
@@ -17,6 +13,10 @@ const Media = () => {
     const [profileImg, setProfileImg] = useState();
 
     useEffect(() => {
+
+        const token = localStorage.getItem('token');
+        const expiryDate = localStorage.getItem('expiryDate');
+        const username = localStorage.getItem('email');
 
         if (!token || !expiryDate) {
             navigate('/');
