@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Classes from './gallery.module.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-import Pic1 from '../../Assets/img/cloud_on_mountain.jpg';
+import { ClipLoader } from "react-spinners";
 
 const expiryDate = localStorage.getItem('expiryDate');
 const username = localStorage.getItem('email');
@@ -12,7 +11,7 @@ const token = localStorage.getItem('token');
 const Gallery = () => {
 
     const navigate = useNavigate();
-    const [media, setMedia] = useState([]);
+    const [media, setMedia] = useState();
 
     useEffect(() => {
 
@@ -34,15 +33,25 @@ const Gallery = () => {
         })
 
     }, [])
-    return (
-        <div className={Classes.scrollbox}>
-            <div className={Classes.body}>
-                {media && media.map((image) => {
-                    return <img key={image} src={`http://localhost:8080\\${image}`} alt={"media"} loading={'lazy'} />
-                })}
 
-            </div>
-        </div>
+    return (
+        <>
+            {media ? <div className={Classes.scrollbox}>
+                <div className={Classes.body}>
+                    {media.length > 0 ?
+                        <>
+                            {media.map((image) => {
+                                return <img key={image} src={`http://localhost:8080\\${image}`} alt={"media"} loading={'lazy'} />
+                            })}
+                        </>
+                        : <div className={Classes.no__gallery}>No Images !</div>
+                    }
+
+                </div>
+            </div> : <div className={Classes.media__loader}>
+                <ClipLoader size={100} color={"#543795"} />
+            </div>}
+        </>
     );
 };
 

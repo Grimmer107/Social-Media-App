@@ -8,9 +8,10 @@ import Classes from './modal.module.css';
 import User from '../User/user';
 
 const Modal = ({ open, setOpen }) => {
+
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState(users)
+  const [filteredUsers, setFilteredUsers] = useState(users);
 
   const onSearchHandle = (e) => {
     const searchQuery = e.target.value;
@@ -20,7 +21,7 @@ const Modal = ({ open, setOpen }) => {
         return user.name.toLowerCase().includes(searchQuery.toLowerCase())
       })
     } else {
-      tmpUsers = users
+      tmpUsers = users;
     }
     setFilteredUsers(tmpUsers)
   }
@@ -43,6 +44,7 @@ const Modal = ({ open, setOpen }) => {
     })
       .then((response) => {
         setUsers(response.data.users);
+        setFilteredUsers(response.data.users);
       }).catch(err => console.log(err));
 
   }, [open]);
@@ -50,6 +52,7 @@ const Modal = ({ open, setOpen }) => {
   if (open === false) {
     return null
   }
+
   return ReactDOM.createPortal(
     <>
       <div className={Classes.overlay} onClick={e => setOpen(false)}></div>

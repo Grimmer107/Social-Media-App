@@ -104,3 +104,23 @@
 .attacher input {
     display: none;
 }
+
+.media__loader {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.choose__contact {
+    color: #543795;
+    font-size: 1.3rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.choose__contact i {
+    font-size: 1.5rem;
+}

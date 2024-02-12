@@ -4,6 +4,7 @@ import Contact from '../../Components/Contact/contact';
 import Context from '../../Context/context';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader, MoonLoader } from "react-spinners";
 
 const logout = (navigate) => {
     localStorage.setItem('token', "");
@@ -14,7 +15,7 @@ const logout = (navigate) => {
 }
 
 const ContactSection = (props) => {
-    const [contacts, setContacts] = useState([]);
+    const [contacts, setContacts] = useState();
     const navigate = useNavigate();
     const { contactFlag } = useContext(Context);
 
@@ -43,13 +44,17 @@ const ContactSection = (props) => {
     return (
         <div className={Classes.body}>
             <div className={Classes.heading}>Contacts</div>
-            <div className={Classes.scrollbox} tabIndex="0">
-                <div className={Classes.contact}>
-                    {contacts.map((contact => {
-                        return <Contact key={contact.name} name={contact.name} email={contact.email} sender={contact.sender} lastMessage={contact.lastMessage} type={contact.type} />
-                    }))}
+            {contacts ?
+                <div className={Classes.scrollbox} tabIndex="0">
+                    <div className={Classes.contact}>
+                        {contacts.map((contact => {
+                            return <Contact key={contact.name} name={contact.name} email={contact.email} sender={contact.sender} lastMessage={contact.lastMessage} type={contact.type} />
+                        }))}
+                    </div>
+                </div> : <div className={Classes.media__loader}>
+                    <MoonLoader size={40} color={"#543795"} />
                 </div>
-            </div>
+            }
             <div className={Classes.footer}>
                 <button onClick={() => logout(navigate)}><i className="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;Logout</button>
             </div>

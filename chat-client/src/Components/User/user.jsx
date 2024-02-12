@@ -2,10 +2,13 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import defaultUser from '../../Assets/img/user.png'
+
 import Classes from './user.module.css';
 import Context from '../../Context/context';
 
 const User = ({ name, email, profilePic }) => {
+
     const [contactStatus, setContactStatus] = useState("Add to Contacts");
     const { setContactFlag } = useContext(Context);
     const UserRef = useRef(null);
@@ -45,7 +48,7 @@ const User = ({ name, email, profilePic }) => {
     return (
         <div className={Classes.body} ref={UserRef}>
             <div className={Classes.profile}>
-                <div className={Classes.image}><img src={`http://localhost:8080\\${profilePic}`} alt={"profile"} loading={'lazy'} /></div>
+                <div className={Classes.image}><img src={profilePic ? `http://localhost:8080\\${profilePic}` : defaultUser} alt={"profile"} loading={'lazy'} /></div>
                 <div className={Classes.details}><p>{name}</p></div>
             </div>
             <div className={Classes.button} onClick={() => {

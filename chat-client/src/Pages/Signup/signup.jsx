@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+// BeatLoader
 import Classes from './signup.module.css';
 import chatting_image from '../../Assets/img/chat_background.svg';
 

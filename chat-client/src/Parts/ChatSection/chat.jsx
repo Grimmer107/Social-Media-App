@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { BarLoader } from "react-spinners";
 import axios from 'axios';
 
 import Classes from './chat.module.css';
@@ -21,7 +22,7 @@ const Chat = () => {
 
     const { currentContact } = useContext(Context);
 
-    const [feedMessages, setFeedMessages] = useState([]);
+    const [feedMessages, setFeedMessages] = useState();
     const [newMessage, setNewMessage] = useState("");
     const [receivedMessage, setReceivedMessage] = useState("");
 
@@ -99,8 +100,13 @@ const Chat = () => {
 
 
     useEffect(() => {
-        let new_arrival = [...feedMessages, receivedMessage];
-        setFeedMessages(new_arrival);
+        let newArrivals;
+        if (feedMessages) {
+            newArrivals = [...feedMessages, receivedMessage];
+        } else {
+            newArrivals = [receivedMessage]
+        }
+        setFeedMessages(newArrivals);
         chatEl.current.scrollIntoView({ behavior: "smooth" });
     }, [receivedMessage])
 
@@ -181,15 +187,22 @@ const Chat = () => {
         <div className={Classes.body}>
             <div className={Classes.chatName}>{currentContact.name}</div>
             <div className={Classes.Chat} >
-                {contactChanged === false ? feedMessages.map(message => {
-                    if (message.self === true) {
-                        return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                            self={message.self} content={message.message} image={currentProfileImage} type={message.type} />
-                    } else {
-                        return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
-                            self={message.self} content={message.message} image={currentContact.image} type={message.type} />
-                    }
-                }) : null}
+                {currentContact.name ?
+                    <>
+                        {(feedMessages && (contactChanged === false)) ? feedMessages.map(message => {
+                            if (message.self === true) {
+                                return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
+                                    self={message.self} content={message.message} image={currentProfileImage} type={message.type} />
+                            } else {
+                                return <Message key={`${Math.random()}+${message.message}+${new Date().getTime()}+${message.self}`}
+                                    self={message.self} content={message.message} image={currentContact.image} type={message.type} />
+                            }
+                        }) : <div className={Classes.media__loader}>
+                            <BarLoader size={150} color={"#543795"} />
+                        </div>}
+
+                    </> : <div className={Classes.media__loader}><p className={Classes.choose__contact}><i className="fa-brands fa-rocketchat"></i>&nbsp; Connect with friends !</p></div>
+                }
                 <div className={Classes.dummyDiv} ref={chatEl}>.</div>
             </div>
             <div className={Classes.MessageSection}>
